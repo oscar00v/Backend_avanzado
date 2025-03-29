@@ -1,22 +1,24 @@
 import dotenv from "dotenv";
-
-dotenv.config({
-    path: `.env.${process.env.NODE_ENV}`
-})
-
 import express from 'express';
+
+import connectDB from "./config/db.js";
+import healtcheckRoutes from "./routes/healtcheckRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+
+dotenv.config();
+
+connectDB();
 
 const app = express()
 
-// Configuracion basica de rutas HEALTCHECK
-app.get('/healtcheck', (req, res)=> {
-    const healtcheck = {
-        status: "OK",
-        code: "200",
-        message: "Servidor en funcionamiento"
-    }
-    res.send(healtcheck)
-})
+//Routes
+app.use(express.json())
+app.use('/api/v0/', healtcheckRoutes)
+app.use('/api/v0/', userRoutes)
+
+
+
+
 
 const PORT = 5010;
 app.listen(PORT, () => {
