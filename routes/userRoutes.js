@@ -5,6 +5,9 @@ import { deleteUser } from '../controllers/userController.js';
 import { updateUser } from '../controllers/userController.js';
 import { getPost } from '../controllers/userController.js';
 import { createPost } from '../controllers/userController.js';
+
+import { protect } from '../middleware/authMiddleware.js';
+
 const router = express.Router();
 
 router.route('/users/create').post(createUser);

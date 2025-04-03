@@ -4,8 +4,11 @@ import express from 'express';
 import connectDB from "./config/db.js";
 import healtcheckRoutes from "./routes/healtcheckRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import { mongo } from "mongoose";
 
 dotenv.config();
+
 
 connectDB();
 

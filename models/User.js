@@ -13,7 +13,19 @@ const UserSchema = new mongoose.Schema({
         require: true,
         unique: true,
         match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    },
+    password: {
+        type: String,
+        require: true,
+        minlength: 6
     }
+});
+
+//metodo para hasear el pasword antes de guardar el usuario
+UserSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next();
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
 });
 
 const User = mongoose.model('User', UserSchema);
