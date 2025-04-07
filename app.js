@@ -18,7 +18,7 @@ const app = express()
 app.use(express.json())
 app.use('/api/v0/', healtcheckRoutes)
 app.use('/api/v0/', userRoutes)
-
+app.use('/api/v0/', authRoutes)
 
 
 

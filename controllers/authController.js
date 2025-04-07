@@ -31,25 +31,20 @@ export const registerUser = async (req, res) => {
     }
 }
 
+
 export const authenticateUser = async (req, res) => {
     const { email, password } = req.body;
+    const userExist = await User.findOne({email}).select('+password');
 
-    try {
-        // Asegurarse de obtener el password para compararlo
-        const userExist = await User.findOne({ email }).select("+password");
-
-        if (userExist && (await bcrypt.compare(password, userExist.password))) {
-            res.json({
-                _id: userExist._id,
-                name: userExist.name,
-                email: userExist.email,
-                token: generateToken(userExist._id)
-            });
-        } else {
-            res.status(401).json({ message: 'Invalid email or password' });
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+    if (userExist && (await bcrypt.compare(password, userExist.password))) {
+        res.json({
+            _id: userExist._id,
+            name: userExist.name,
+            email: userExist.email,
+            token: generateToken(userExist._id)
+        })
+    }else{
+        res.status(401).json({ message: 'Invalid email or password' });
     }
-}
 
+}

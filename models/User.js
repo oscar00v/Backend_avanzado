@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import bcrypt from "bcryptjs";
 //** User Schema se trae el esquema del usuario
 const UserSchema = new mongoose.Schema({
     name: {
@@ -17,7 +17,8 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         require: true,
-        minlength: 6
+        minlength: 6,
+        select: false // No mostrar la contraseña por defecto
     }
 });
 

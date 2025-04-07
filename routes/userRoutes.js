@@ -7,8 +7,10 @@ import { getPost } from '../controllers/userController.js';
 import { createPost } from '../controllers/userController.js';
 
 import { protect } from '../middleware/authMiddleware.js';
+import { get } from 'mongoose';
 
 const router = express.Router();
+
 
 router.route('/users/create').post(createUser);
 router.route('/users/').get(getAllUser);
@@ -17,5 +19,9 @@ router.route('/users/update/:email').patch(updateUser);
 
 router.route('/posts').get(getPost);
 router.route('/posts/create').post(createPost);
+
+router.route('/posts/protect')
+  .post(protect, createPost) 
+  .get(protect, getPost);    
 export default router;
 

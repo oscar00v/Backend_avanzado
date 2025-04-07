@@ -1,24 +1,25 @@
+import jwt from 'jsonwebtoken';
 import User from "../models/user.js";  
 import dotenv from "dotenv";
 dotenv.config();
 
-
 export const protect = async (req, res, next) => {
     let token;
 
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith("Bearer")
+    ) {
         try {
-            token = req.headers.authorization.split(' ')[1];
+            token = req.headers.authorization.split(" ")[1];
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = await User.findById(decoded.id).select('-password'); 
-            next();
+            req.user = await User.findById(decoded.id).select("-password");
+            return next();
         } catch (error) {
-            console.error(error);
-            res.status(401).json({ message: 'Not authorized, no token failed' });
+            console.error("Token invalid or expired", error);
+            return res.status(401).json({ message: "Not authorized, token failed" });
         }
     }
-    if (!token) {
-        res.status(401).json({ message: 'Not authorized, no token' });
-    }
 
-}
+    return res.status(401).json({ message: "Not authorized, no token" });
+};
