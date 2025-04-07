@@ -6,6 +6,7 @@ import healtcheckRoutes from "./routes/healtcheckRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import { mongo } from "mongoose";
+import { errors } from "celebrate";
 
 dotenv.config();
 
@@ -15,12 +16,13 @@ connectDB();
 const app = express()
 
 //Routes
+
 app.use(express.json())
 app.use('/api/v0/', healtcheckRoutes)
 app.use('/api/v0/', userRoutes)
 app.use('/api/v0/', authRoutes)
 
-
+app.use(errors())
 
 
 const PORT = 5010;

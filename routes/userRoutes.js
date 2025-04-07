@@ -8,11 +8,11 @@ import { createPost } from '../controllers/userController.js';
 
 import { protect } from '../middleware/authMiddleware.js';
 import { get } from 'mongoose';
-
+import { userValidation } from '../middleware/userValidations.js';
 const router = express.Router();
 
 
-router.route('/users/create').post(createUser);
+router.route('/users/create').post(userValidation,createUser);
 router.route('/users/').get(getAllUser);
 router.route('/users/:email').delete(deleteUser);
 router.route('/users/update/:email').patch(updateUser);

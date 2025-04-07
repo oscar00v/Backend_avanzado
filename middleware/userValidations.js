@@ -1,11 +1,9 @@
-import { celebrate } from "celebrate";
-import { Joi } from "celebrate";
-import { Segments } from "../models/user.js";
+import { celebrate, Joi, Segments } from "celebrate";
 
-const userValidation = celebrate({
+export const userValidation = celebrate({
     [Segments.BODY]: Joi.object().keys({
-        name: Joi.string().required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().min(6).required(),
+        name: Joi.string().required().max(50),
+        email: Joi.string().required().email(),
+        password: Joi.string().required().min(6)
     })
-});
+})
