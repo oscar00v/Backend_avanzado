@@ -2,7 +2,7 @@ import request from 'supertest';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import app from '../../app.js'; // exporta tu app express desde app.js
-import User from '../../src/models/User.js';
+import User from '../../models/user.js';
 
 let mongoServer;
 
