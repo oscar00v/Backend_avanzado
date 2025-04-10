@@ -25,7 +25,7 @@ afterEach(async () => {
 });
 
 describe('Integration Testing - Auth Controller', () => {
-
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   test('Registro de Usuario Exitoso', async () => {
     const response = await request(app)
       .post('/api/v0/users/create')
@@ -41,7 +41,7 @@ describe('Integration Testing - Auth Controller', () => {
     expect(response.body).toHaveProperty('email', 'juan@example.com');
     expect(response.body).not.toHaveProperty('token'); // Asegúrate de que no se devuelva el token aquí
   });
-
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   test('Falla al registrar usuario ya existente', async () => {
     await User.create({
       name: 'Juan Perez',
@@ -60,7 +60,7 @@ describe('Integration Testing - Auth Controller', () => {
     expect(response.statusCode).toBe(400);
     expect(response.body.message).toMatch(/duplicate key/i);
   });
-
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   test('Login Exitoso', async () => {
     const newUser = await User.create({
       name: 'Luis Gomez',
@@ -79,7 +79,7 @@ describe('Integration Testing - Auth Controller', () => {
     expect(response.body).toHaveProperty('token');
     expect(response.body.email).toBe('luis@example.com');
   });
-
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   test('Login Fallido - Contraseña Incorrecta', async () => {
     await User.create({
       name: 'Luis Gomez',
